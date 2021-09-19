@@ -14,4 +14,4 @@ FROM abdennour/nginx-distroless-unprivileged:1.18 as release
 WORKDIR /opt/app
 COPY --from=build --chown=1001:0 /client/conf/nginx /etc/nginx/conf.d
 COPY --from=build  --chown=1001:0 /client/build/. .
-EXPOSE 8081
+EXPOSE 8080

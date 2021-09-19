@@ -13,8 +13,7 @@ services:
             - ./mongo:/data/database
     
     backend:
-        #image: ##blm psh
-        build: ./go-server
+        image: anugnf/todo-app-backend:1.0
         ports: 
             - "8080:8080"
         depends_on: 
@@ -26,10 +25,12 @@ services:
         restart: always
         
     frontend:
-        #image: #blm psh
+        #image: #blm push
+        #docker-compose up done
+        #docker build -t npm install error: maximum call stack size excedeed
         build: ./client
         ports: 
-            - "3000:8081"
+            - "3000:8080"
         depends_on: 
             - backend
         environment: 
