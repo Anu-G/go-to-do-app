@@ -1,15 +1,37 @@
 version: '3'
-services:
-    mongodb:
+services: 
+    database:
         image: mongo
-        ports:
+        ports: 
             - "27017:27017"
-        environment:
+        environment: 
             MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: example
+            MONGO_INITDB_ROOT_PASSWORD: password
             MONGO_INITDB_DATABASE: test
         restart: always
-        volumes:
-            - mongo_data:/data/db
-volumes:
-    mongo_data:
+        volumes: 
+            - ./mongo:/data/database
+    
+    backend:
+        #image: ##blm psh
+        build: ./go-server
+        ports: 
+            - "8080:8080"
+        depends_on: 
+            - database
+        environment: 
+            DB_URI: mongodb://root:password@database:27017
+            DB_NAME: test
+            DB_COLLECTION_NAME: todolist
+        restart: always
+        
+    frontend:
+        #image: #blm psh
+        build: ./client
+        ports: 
+            - "3000:8081"
+        depends_on: 
+            - backend
+        environment: 
+            REACT_APP_GO_ENDPOINT: backend:8080
+        restart: always                                    
