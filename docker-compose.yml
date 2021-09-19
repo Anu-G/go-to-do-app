@@ -25,10 +25,7 @@ services:
         restart: always
         
     frontend:
-        #image: #blm push
-        #docker-compose up done
-        #docker build -t npm install error: maximum call stack size excedeed
-        build: ./client
+        image: anugnf/todo-app-frontend:1.0
         ports: 
             - "3000:8080"
         depends_on: 
